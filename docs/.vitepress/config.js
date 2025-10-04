@@ -140,7 +140,6 @@ export default {
   },
 
   themeConfig: {
-    base,
     nav: [
       {
         text: '文档目录',
