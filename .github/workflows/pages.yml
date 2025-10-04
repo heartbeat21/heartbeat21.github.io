@@ -31,7 +31,7 @@ jobs:
         run: npm install
 
       - name: Build with VitePress
-        run: npm run docs:build   #根据package.json的scripts对象修改
+        run: npm run build   #根据package.json的scripts对象修改
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
