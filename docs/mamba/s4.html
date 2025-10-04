@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>s4.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+<link rel="stylesheet" href="file:///d%3A/download/typora/academic/academic.css" type="text/css">
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="s4%E9%98%85%E8%AF%BB">S4阅读</h1>
+<hr>
+<p>author: 顾家琛
+university: NUDT
+email: <a href="mailto:gujiachen21@nudt.edu.cn">gujiachen21@nudt.edu.cn</a>
+time: %%date%%time</p>
+<hr>
+<h2 id="effciently-modeling-long-sequences-with-structured-state-spaces">Effciently Modeling Long Sequences with Structured State Spaces</h2>
+<h2 id="%E4%B8%80%E6%91%98%E8%A6%81">一、摘要</h2>
+<ol>
+<li>尽管传统的模型（如 RNN、CNN 和 Transformer）都有专门用于捕捉长距离依赖的变体，但它们在扩展到长度为 10,000 步甚至更长的序列时仍面临困难</li>
+<li>使用SSM建模序列空间：</li>
+</ol>
+<p>$$x^{'}(t) = Ax(t) + Bu(t)$$
+$$y(t) = Cx(t) + Du(t)$$</p>
+<p>其中，(x(t) \in \mathbb{R}^{N<em>1},\quad y(t)\quad and\quad u(t) \in \mathbb{R})
+(A \in \mathbb{R}^{N</em>N},B \in \mathbb{R}^{N<em>1},C \in \mathbb{R}^{1</em>N},D \in \mathbb{R} )</p>
+<ol start="3">
+<li>S4的优点：
+<ul>
+<li>可以轻松应对长文本</li>
+<li>可以在连续时间模型、卷积模型和循环模型之间灵活转换</li>
+</ul>
+</li>
+</ol>
+<h2 id="%E4%BA%8C%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86%E7%8A%B6%E6%80%81%E7%A9%BA%E9%97%B4">二、背景知识（状态空间）</h2>
+<h3 id="21-state-space-models-a-continuous-time-state-model">2.1 State Space Models: A Continuous-time State Model</h3>
+<p>状态空间定义如\ref{eq 1}。</p>
+<p>\label{
+$$\begin{equation}
+\begin{aligned}
+a &amp;= b + c \
+d &amp;= e + f \
+g &amp;= h + i
+\end{aligned}
+\end{equation}$$
+}{eq 1}</p>
+<h3 id="22-addressing-long-range-dependencies-with-hippo">2.2 Addressing Long-Range Dependencies with HIPPO</h3>
+<p>先前的SSM应用较差，可能是因为线性一阶常微分方程的解是指数函数，因此在序列长度较长时，梯度可能会呈指数级增长或衰减（即存在梯度消失/爆炸问题）。</p>
+<p>HiPPO提出了一类特殊矩阵\ref{eq 2}，状态 <em><strong>x(t)</strong></em> 可以有效记忆输入 <em><strong>u(t)</strong></em></p>
+<p>\label[1]
+{
+$$\begin{equation}
+(HiPPO\quad Matrix)  A_{nk} = -
+\begin{cases}
+\sqrt{(2n + 1)(2k + 1)} &amp; \text{if } n &gt; k \
+n + 1 &amp; \text{if } n = k \
+0 &amp; \text{if } n &lt; k
+\end{cases}
+\end{equation}$$
+}{eq 2}</p>
+<h3 id="23-discrete-time-ssm-the-recurrent-representation%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4-ssm%E9%80%92%E5%BD%92%E8%A1%A8%E7%A4%BA">2.3 Discrete-time SSM: The Recurrent Representation(离散时间 SSM：递归表示)</h3>
+<h4 id="%E5%8F%8C%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2-%E5%B0%86z%E5%B9%B3%E9%9D%A2%E6%98%A0%E5%B0%84%E5%88%B0s%E5%B9%B3%E9%9D%A2">双线性变换: 将z平面映射到s平面</h4>
+<p>在原点sT/2=0处进行泰勒展开，并砍去高阶项，很容易得到
+$z = e^{sT} = \frac{e^{sT/2}}{e^{-sT/2}} \approx \frac{1+sT/2}{1-sT/2}$
+进而可得
+$s = \frac{2}{T}\frac{1-z^{-1}}{1+z^{-1}}$
+接下来将$\textit{z} = e^{jw}$带入
+$$\begin{align*}
+\textit{s} &amp;= \frac{2}{T}\frac{1-e^{-jw}}{1+e^{jw}} \
+&amp;=\frac{2}{T}\frac{e^{jw/2}-e^{-jw/2}}{e^{jw/2}+e^{-jw/2}} \
+&amp;=\mathit{j}\frac{2}{T}\frac{\mathit{sin(w/2)}}{\mathit{cos(w/2)}} \
+&amp;=\mathit{j}\frac{2}{T}\mathit{tan(w/2)}
+\end{align*}$$</p>
+<h4 id="ssm%E7%A6%BB%E6%95%A3%E5%8C%96">SSM离散化</h4>
+<p>原式状态方程
+$$
+\begin{align}
+x'(t) &amp;= Ax(t) + Bu(t)\
+y(t) &amp;= Cx(t) + Du(t)
+\end{align}
+$$</p>
+<p>下面对公式（3）进行推导。</p>
+<p>先进行拉式变换得到
+$\mathcal{L}[x'(t)] = A\mathcal{L}[x(t)] + B\mathcal{L}[u(t)]$
+化简得到
+$sX(s) - X(0) = AX(s) + BU(s)$
+其中(X(0) = 0)，则
+$sX(s) = AX(s) + BU(s)$
+接下来应用双线性变换，即代入(s = \frac{2}{T}\frac{1-z^{-1}}{1+z^{-1}})，并移项化简得到
+$zX(z) = (I-\frac{T}{2}A)^{-1}(I + \frac{T}{2}A)X(z) + (I-\frac{T}{2}A)^{-1}(z+1)BU(z) $
+进行逆z变换，变换到t域
+$X(z+1) + x(0) = (I-\frac{T}{2}A)^{-1}(I + \frac{T}{2}A)X(z) + (I-\frac{T}{2}A)^{-1}(z+1)BU(z)$
+$X(z+1) = (I-\frac{T}{2}A)^{-1}(I + \frac{T}{2}A)X(z) + (I-\frac{T}{2}A)^{-1}B(U(z+1)+U(z))$
+$x(t+1) = (I-\frac{T}{2}A)^{-1}(I + \frac{T}{2}A)x(t) + \frac{T}{2}(I-\frac{T}{2}A)^{-1}B(u(t+1) + u(t)) $</p>
+<p>论文中可能使用了(\frac{1}{2}(u(t+1)+u(t)) \approx u(t+1))
+最终得到
+\label{<img src="assets/image-8.png" alt="alt text">
+}{eq 3}</p>
+<h3 id="24-the-convolutional-representation">2.4 The Convolutional Representation</h3>
+<p><img src="assets/image-9.png" alt="alt text"></p>
+<h2 id="%E4%B8%89%E7%AE%97%E6%B3%95">三、算法</h2>
+<h3 id="31-%E5%8A%A8%E6%9C%BAmotivation">3.1 动机（Motivation）</h3>
+<p>原本的SSM计算有大量重复的矩阵计算，在LSSL中需要(O(N^2L))次计算和(O(NL))大小的空间</p>
+<p><em><strong>Lemma 3.1.</strong></em> 共轭的等价替换$(A,B,C) \sim (V^{-1}AV,V^{-1}B,CV)$</p>
+<p><img src="assets/image-10.png" alt="alt text"></p>
+<p>通过$V$将$A$转换为对角矩阵，特别是$\overline{K} \in \mathbb{R}^{N*L} = (\overline{CB},\overline{CAB},\dots,\overline{CA^{L-1}B})$是一个范德蒙德矩阵(Vandermonde product)，计算需要(O(N+L)log^2(N+L))计算。</p>
+<p>然而，由于数值问题，直接应用对角化方法并不奏效。</p>
+<p><em><strong>Lemma 3.2.</strong></em> <img src="assets/image-11.png" alt="alt text"></p>
+<h3 id="hippo-diagonalization">HiPPO Diagonalization</h3>
+<p><img src="assets/image-13.png" alt="alt text">
+目标是证明矩阵A能被V对角化
+<img src="assets/image-14.png" alt="alt text">
+其中V是组合数矩阵(V_{5,3} = C_{5+3}^{5-3} = 28)
+即证明
+$Av^j =  [\underset{k}{\sum} A_{ik} v_k^j ] = [(j+1)v_i^j] $</p>
+<p>下面分类讨论：</p>
+<ol>
+<li>(j&gt;i)
+<ul>
+<li>对应的要么(A_{ik})要么(v_k^j )为0，等式恒成立。</li>
+</ul>
+</li>
+<li>$\underset{k}{\sum}A_{ik} v_k^j = \underset{k=j}{\overset{i-1}{\sum}}(-1)^{i-k}(2k+1)\binom{k-j}{k+j} + (i+1)\binom{i-j}{i+j} $
+<ul>
+<li>(i=j)时，$\underset{k}{\sum}A_{ik} v_k^j  = (i+1)\binom{i-j}{i+j} = j+1 = (j+1)v_i^j $</li>
+<li>(i&lt;j)时，假设$\underset{k}{\sum}A_{i,k} v_k^j = [(j+1)v_i^j]$,根据递归定理则有
+$$
+\begin{aligned}
+\underset{k}{\sum}A_{i,k} v_k^j &amp;+ \underset{k}{\sum}A_{i-1,k} v_k^j = (-1)(2i-1)\binom{i-j-1}{i+j-1}+(i+1)\binom{i-j}{i+j}+i\binom{i-j-1}{i+j-1} \
+\underset{k}{\sum}A_{i-1,k} v_k^j &amp;= (1-i)\binom{i-j-1}{i+j-1} + (i-j)\binom{i-j}{i+j} \
+\underset{k}{\sum}A_{i-1,k} v_k^j &amp;= (1-i)\binom{i-j-1}{i+j-1} + (i-j)\frac{(i+j)\times \cdots \times (i-j+1)}{2j!} \
+\underset{k}{\sum}A_{i-1,k} v_k^j &amp;= (1-i)\binom{i-j-1}{i+j-1} + \frac{(i+j)\times \cdots \times (i-j+1) \times (i-j)}{2j!} \
+\underset{k}{\sum}A_{i-1,k} v_k^j &amp;= (1-i)\binom{i-j-1}{i+j-1} + (i+j)\binom{i-j-1}{i+j-1} \
+\underset{k}{\sum}A_{i-1,k} v_k^j &amp;= (j+1)\binom{i-j-1}{i+j-1}
+\end{aligned}
+$$</li>
+</ul>
+</li>
+</ol>
+<h3 id="32-the-s4-parameterization-norm-plus-low-rank%E6%AD%A3%E5%88%99%E5%8A%A0%E4%BD%8E%E7%A7%A9">3.2 The S4 Parameterization: Norm Plus Low-Rank(正则加低秩)</h3>
+<p>事实上HiPPO矩阵没办法正常对角化，只能化为一个正规矩阵和一个低秩矩阵，此外还加入了三种新的技术。</p>
+<h4 id="1-%E7%AE%97%E6%B3%95%E5%89%8D%E6%8F%90">1. 算法前提</h4>
+<ol>
+<li>HiPPO Matries is NPLR
+<ul>
+<li>HiPPO-LagT</li>
+<li>HiPPO-LegS</li>
+<li>HiPPO-legT</li>
+</ul>
+</li>
+<li>S4 recurrent view
+<ul>
+<li>aussme $A = \Lambda - PQ^{*} $ is DPLR</li>
+<li>前向离散化，代入(\overline{A})得到 $I + \frac{\Delta}{2} A = \frac{\Delta}{2} A_0$
+<ul>
+<li>其中$A_0 = \frac{2}{\Delta} + \Lambda - PQ^{*} $</li>
+</ul>
+</li>
+<li>后向离散化，代入(\overline{A})得到 $(I - \frac{\Delta}{2} A)^{-1} = \frac{2}{\Delta} A_1$
+<ul>
+<li>$$
+\begin{align*}
+(I - \frac{\Delta}{2} A)^{-1} &amp;= (I - \frac{\Delta}{2} (\Lambda - PQ^{<em>}))^{-1} \
+&amp;= \frac{2}{\Delta}(\frac{2}{\Delta} - \Lambda + PQ^</em>)^{-1} \
+&amp;= \frac{2}{\Delta}(D + PQ^<em>)^{-1}\
+&amp;= \frac{2}{\Delta}(D^{-1}-(D+PQ^</em>)^{-1}PQ^<em>D^{-1}) \
+&amp;= \frac{2}{\Delta}(D^{-1}-(P^{-1}D+Q^</em>)^{-1}Q^*D^{-1}) \
+&amp;= \frac{2}{\Delta}(D^{-1}-D^{-1}P(I+Q^*D^{-1}P)^{-1}Q^<em>D^{-1}) \
+&amp;= \frac{2}{\Delta} A_1
+\end{align</em>}
+$$
+其中(D = \frac{2}{\Delta} - \Lambda)</li>
+</ul>
+</li>
+<li>S4 Recurrence
+<ul>
+<li>$$
+\begin{aligned}
+\overline{A} &amp;= A_1A_0 \
+\overline{B} &amp;= \frac{2}{\Delta}A_1\Delta B = 2A_1B
+\end{aligned}
+$$</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="2-%E7%AE%97%E6%B3%951">2. 算法1</h4>
+<p><img src="assets/image-12.png" alt="alt text"></p>
+<p><em><strong>Note</strong></em>: C现在是转置矩阵$C \in \mathbb{R}^{N \times 1}$</p>
+<h4 id="reduction-0-diagonalization">Reduction 0: Diagonalization</h4>
+<p>假设A是DPLR</p>
+<h4 id="reduction-1-ssm-generating-function">Reduction 1: SSM Generating Function</h4>
+<p>$$
+\underset{i=0}{\overset{\infty}{\sum}} A^i z^i = (I - A)^{-1}
+$$
+$$
+\underset{i=0}{\overset{L-1}{\sum}} A^i z^i = (I - A^Lz^L)(I - A)^{-1}
+$$</p>
+<p>那么有
+$$
+\mathcal{K}_L(\overline{A}, \overline{B}, \overline{C})  = (\overline{C}\overline{B},\overline{C}\overline{A}\overline{B},\dots,\overline{C}\overline{A}^{L-1}\overline{B}) \in \mathbb{R}^L
+$$
+则卷积核对应的生成函数
+$$
+\mathcal{K}_L(z;\overline{A}, \overline{B}, \overline{C}) \in \mathbb{C} = \underset{i=0}{\overset{\infty}{\sum}} \overline{C}\overline{A}^i\overline{B}z^i
+$$
+在序列长度为L的截断生成函数为
+$$
+\mathcal{K}_L(z;\overline{A}, \overline{B}, \overline{C}) \in \mathbb{C} = \underset{i=0}{\overset{L-1}{\sum}} \overline{C}\overline{A}^i\overline{B}z^i = \overline{C}(I - \overline{A}^Lz^L)(I - \overline{A})^{-1}\overline{B}
+$$</p>
+<h4 id="lemma-2-ssm%E5%87%BD%E6%95%B0mathcalkloverlinea-overlineb-overlinec-%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87%E5%9C%A8%E5%8D%95%E4%BD%8D%E6%A0%B9omega--exp-2pi-i-fracklk-in-l%E5%A4%84%E8%AE%A1%E7%AE%97ssm%E6%88%AA%E6%96%AD%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0%E6%89%80%E9%9C%80%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0%E4%B8%BAollog-l">Lemma 2 SSM函数(\mathcal{K}_L(\overline{A}, \overline{B}, \overline{C}) )可以通过在单位根$\Omega = {\exp(-2\pi i \frac{k}{L}:k \in [L])}$处计算SSM截断生成函数，所需操作次数为(O(L\log L))。</h4>
+<p>为了方便，有如下定义
+$$
+\begin{aligned}
+\overline{K} &amp;= \mathcal{K}_L(\overline{A}, \overline{B}, \overline{C}) \
+\hat{K} &amp;= \mathcal{K}_L(\Omega;\overline{A}, \overline{B}, \overline{C}) \
+\hat{K}(z) &amp;= \mathcal{K}_L(z;\overline{A}, \overline{B}, \overline{C}) \
+\overline{K}_i &amp;= \overline{C}\overline{A}^i\overline{B}
+\end{aligned}
+$$</p>
+<p>并且有
+\label{
+$$
+\begin{equation}
+\hat{K}<em>j = \sum</em>{k=0}^{L-1}\overline{K}_k e^{-2\pi i \frac{jk}{L}}
+\end{equation}
+$$
+}{eq 4}</p>
+<p>\ref{eq 4}和离散傅里叶变换形式相同，因此(\overline{K})可以通过快速逆傅里叶变换求出。</p>
+<h4 id="reduction-2-%E5%88%A9%E7%94%A8woodbury%E5%BF%AB%E9%80%9F%E6%B1%82%E5%BE%97%E9%80%86%E7%9F%A9%E9%98%B5">Reduction 2 利用Woodbury快速求得逆矩阵</h4>
+<p>$$
+(A+BCD)^{-1} = A^{-1} - A^{-1}B(C^{-1} + DA^{-1}B)^{-1}DA^{-1}
+$$
+其中(A+BCD、A、C、C^{-1} + DA^{-1}B)可逆，并且(A \in \mathbb{R^{m<em>m}}, B \in \mathbb{R^{m</em>n}}，C \in \mathbb{R^{n<em>n}}, D \in \mathbb{R^{n</em>m}})</p>
+<p>对于(\overline{A})这个DPLR矩阵而言，其可以变为$A+UV^T$，并且$A、I+V^TA^{-1}U$均可逆，则有</p>
+<p>\label{
+$$
+\begin{equation}
+(A+UV^{T})-1 = A^{-1} - A^{-1}U(I_p + V^{T}A^{-1}U)^{-1}V^TA^{-1}
+\end{equation}
+$$
+}{eq 3}</p>
+<h4 id="lemma-3-cti-overlineaz-1overlineb--frac2delta1zct2frac1-z1z---delta-a-1b">Lemma 3 $C^T(I-\overline{A}z)^{-1}\overline{B} = \frac{2\Delta}{1+z}C^{T}[2\frac{1-z}{1+z} - \Delta A]^{-1}B $</h4>
+<p>首先根据双线性离散化有\ref{eq 3}</p>
+<p>$$
+\begin{aligned}
+C^T(I-\overline{A}z)^{-1}\overline{B} &amp;= C^T[I-(I-\frac{\Delta}{2}A)^{-1}(I+\frac{\Delta}{2}A)z]^{-1}(I-\frac{\Delta}{2}A)^{-1}\Delta B \
+&amp;=C^T[(I-\frac{\Delta}{2}A) - (I+\frac{\Delta}{2}A)z]^{-1}\Delta B \
+&amp;= C^T[I(1-z)-\frac{\Delta}{2}(1+z)A]^{-1}\Delta B \
+&amp;= \frac{2\Delta}{1+z}C^T[2\frac{1-z}{1+z}I - \Delta A]^{-1}B
+\end{aligned}
+$$</p>
+<h4 id="lemma-4-%E6%88%AA%E6%96%AD%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0%E6%BB%A1%E8%B6%B3%E8%BF%99%E9%87%8C%E4%BB%A4a--lambda--pq">Lemma 4 截断生成函数满足(这里令$A = \Lambda -PQ$)</h4>
+<p>$$
+\begin{aligned}
+\hat{K}(z) &amp;= \frac{2}{1+z}[\tilde{C}^TR(z)B-\tilde{C}^TR(z)P(1+QR(z)P)^{-1}QR(z)B] \
+\tilde{C}^T &amp;= \overline{C}^T(I-\overline{A}^L) \
+R(z;\Lambda) &amp;= (\frac{2}{\Delta}\frac{1-z}{1+z} - \Lambda)^{-1}
+\end{aligned}
+$$</p>
+<p>代入<a href="#lemma-3-cti-overlineaz-1overlineb--frac2delta1zct2frac1-z1z---delta-a-1b-">Lemma 3</a>即可</p>
+<blockquote>
+<p>论文中提到(\tilde{C}^T)可以直接通过训练得到，避免计算。</p>
+</blockquote>
+<h4 id="reduction-3-cauchy-kernel">Reduction 3 Cauchy Kernel</h4>
+<p>通过之前的分析，现在只需要计算SSM阶段生成函数，再经过逆傅里叶变换即可得到(\mathcal{K}_L(\overline{A},\overline{B},\overline{C}))</p>
+<p>一个在$\Omega =(\omega_i)\in \mathbb{C}^M 和 \Lambda = (\lambda_j)\in \mathbb{C}^N $的柯西核
+$$
+M\in \mathbb{C}^{M \times N} = M(\Omega, \Lambda) = (M_{ij})<em>{i\in[M],j\in [N]} \qquad M</em>{ij} = \dfrac{1}{\omega_i - \lambda_j}
+$$</p>
+<h4 id="proposition-5%E5%91%BD%E9%A2%98-5">Proposition 5(命题 5)</h4>
+<p>一个柯西核需要(O(M+N))空间，操作计数为</p>
+<p>$$
+\mathcal{C}(M,N) = \begin{cases}
+O(MN) &amp; naively\
+O((M+N)log^2(M+N)) &amp; in\quad exact\quad arithmetic\
+O((M+N)log(M+N)log\frac{1}{\epsilon}) &amp; 精度\epsilon
+\end{cases}
+$$</p>
+<h4 id="corollary-5%E6%8E%A8%E8%AE%BA5">Corollary 5(推论5)</h4>
+<p>对于任意一组$\Omega \in \mathbb{C}^L$、对角矩阵(\Lambda)和向量P、Q, 计算$Q^T R(\Omega; \Lambda)P$(定义在<a href="#lemma-3-cti-overlineaz-1overlineb--frac2delta1zct2frac1-z1z---delta-a-1b-">引理三</a>), 可以在$\mathcal{C}(L, N)$次操作和$O(L+N)$空间内完成。</p>
+
+</body>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ tex2jax: {inlineMath: [['$', '$']]}, messageStyle: "none" });</script>
+</html>
